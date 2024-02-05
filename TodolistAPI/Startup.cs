@@ -27,8 +27,19 @@ namespace TodolistAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            
+            //services.AddCors(options =>
+            //{
+            //    options.AddDefaultPolicy(
+            //                      policy =>
+            //                      {
+            //                          policy.WithOrigins("http://localhost:4200").AllowCredentials().AllowAnyHeader().AllowAnyMethod();
+            //                      });
+            //});
             services.AddControllers();
             services.AddSingleton<ITaskRepository, TaskRepository>();
+            services.AddSwaggerGen();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -37,7 +48,15 @@ namespace TodolistAPI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI();
             }
+
+            app.UseCors(x => x
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
+
 
             app.UseHttpsRedirection();
 
@@ -49,6 +68,8 @@ namespace TodolistAPI
             {
                 endpoints.MapControllers();
             });
+
+            
         }
     }
 }

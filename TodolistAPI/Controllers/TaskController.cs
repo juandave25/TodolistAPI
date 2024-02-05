@@ -69,5 +69,21 @@ namespace TodolistAPI.Controllers
             }
             
         }
+
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<ActionResult<Task>> getById(int id)
+        {
+            var response = await _taskRepository.GetById(id);
+            if (response != null)
+            {
+                return Ok(response);
+            }
+            else
+            {
+                return StatusCode(500);
+            }
+
+        }
     }
 }

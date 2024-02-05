@@ -11,7 +11,7 @@ namespace DataAcess.Repository.Interfaces
     {
         public Task<List<Task>> GetAll();
 
-       public Task<List<Task>> GetById(int id);
+       public Task<Task> GetById(int id);
 
         public Task<bool> Add(Task task);
 
